@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ViNet</string>
+    <string name="description">Media Controls</string>
+    <string name="layout_series">Series</string>
+    <string name="layout_movies">Movies</string>
+    <string name="moview_start">Start movie</string>
+    <string name="serie_start">Start chapter</string>
+    <string name="serie_chapter">Chapters</string>
+    <string name="chaper">Chapter</string>
+</resources>

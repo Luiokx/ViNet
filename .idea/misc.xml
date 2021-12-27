@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3828125" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable-v24/unselected.xml" value="0.1" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable/chapter_attribute.xml" value="0.3828125" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable/chapter_selected.xml" value="0.221875" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable/details_buttons.xml" value="0.3828125" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable/ic_addlist.xml" value="0.3828125" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable/ic_back.xml" value="0.3828125" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable/ic_baseline_download_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable/ic_baseline_play_arrow_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable/ic_forward.xml" value="0.3828125" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable/ic_pause.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable/ic_play.xml" value="0.3828125" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable/ic_replay.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable/indicator_selector.xml" value="0.1" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable/play_btn_movie_bg.xml" value="0.1" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable/selected.xml" value="0.1" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/drawable/unselected.xml" value="0.1" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/layout/activity_movie_detail.xml" value="0.25" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/layout/activity_serie_detail.xml" value="0.25" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/layout/activity_video_player.xml" value="0.20572916666666666" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/layout/banner_movie_layout.xml" value="0.1" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/layout/cat_recycler_row_items.xml" value="0.25" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/layout/cat_row_items.xml" value="0.1" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/layout/chapter_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/layout/main_recycler_row_item.xml" value="0.1" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/layout/media_controller.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/layout/mediacontroller_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Luis Carlos/AndroidStudioProjects/ViNet/app/src/main/res/layout/spinner_temporadas_layou.xml" value="0.33" />
+        <entry key="..\:/Users/Luis Carlos/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_dropdown_item.xml" value="0.20572916666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
