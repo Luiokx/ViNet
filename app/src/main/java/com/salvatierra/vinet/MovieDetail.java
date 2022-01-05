@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.salvatierra.vinet.model.CategoryItem;
+import com.salvatierra.vinet.model.DataManager;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -45,14 +46,12 @@ public class MovieDetail extends AppCompatActivity {
     }
 
     private void loadLayout(){
-        movieItem = new CategoryItem();
-
-        getSelectedData();
+        DataManager dbHelper = new DataManager(MovieDetail.this);
+        movieItem = dbHelper.getDataMovie(getIntent().getIntExtra("idObject",0));
 
         setImage();
 
         setDescr();
-        //((ImageView) findViewById(R.id.serie_image)).setI
     }
 
     private void setDescr(){
@@ -73,33 +72,6 @@ public class MovieDetail extends AppCompatActivity {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void getSelectedData(){
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-
-            Connection conexion = DriverManager.getConnection("jdbc:mysql://92.187.160.50:3306/anime", "animes", "vivaelbetis");
-
-            Statement consulta = conexion.createStatement();
-
-            String sql = "SELECT name, descripcion, extension FROM pelicula where name = " + "'"  + getIntent().getStringExtra("nameDetails") + "'";
-
-            ResultSet resultado = consulta.executeQuery(sql);
-
-            while (resultado.next()){
-                movieItem.setMovieName(resultado.getString(1));
-                movieItem.setDescription(resultado.getString(2));
-                movieItem.setExtension(resultado.getString(3));
-            }
-
-        }catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

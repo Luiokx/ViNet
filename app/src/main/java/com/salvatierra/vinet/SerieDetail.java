@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.salvatierra.vinet.model.CategoryItem;
+import com.salvatierra.vinet.model.DataManager;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class SerieDetail extends AppCompatActivity {
     private CategoryItem serieItem;
     private ArrayAdapter cap;
     private ArrayList<String> capitulos;
+    private DataManager dbHelper = new DataManager(SerieDetail.this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,44 +78,11 @@ public class SerieDetail extends AppCompatActivity {
     }
 
     private void setChapters() {
-        capitulos = getCapitulos();
+        capitulos = dbHelper.getCapitulos(serieItem.getId(), (((Spinner) findViewById(R.id.spinner_temporada)).getSelectedItemPosition() + 1), serieItem, getString(R.string.chaper));
 
         cap = new ArrayAdapter<String>(SerieDetail.this,  R.layout.chapter_layout,R.id.chapter_cap_number, capitulos);
 
         ((ListView) findViewById(R.id.list_series_chapter)).setAdapter(cap);
-    }
-
-    private ArrayList<String> getCapitulos(){
-        ArrayList<String> response = new ArrayList<>();
-        int count = 0;
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-
-            Connection conexion = DriverManager.getConnection("jdbc:mysql://92.187.160.50:3306/anime", "animes", "vivaelbetis");
-
-            Statement consulta = conexion.createStatement();
-
-            String sql = "SELECT capitulos, type FROM capitulos where idserie = " + serieItem.getId() + " and idtemporada = " + (((Spinner) findViewById(R.id.spinner_temporada)).getSelectedItemPosition() + 1);
-
-            ResultSet resultado = consulta.executeQuery(sql);
-
-            while (resultado.next()){
-                count = resultado.getInt(1);
-                serieItem.setExtension(resultado.getString(2));
-            }
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        for (int i = 0; i < count; i++){
-            response.add(getString(R.string.chaper) + " " + (i + 1));
-        }
-
-        return response;
     }
 
     private void setSpinner() {
@@ -130,12 +99,11 @@ public class SerieDetail extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //setChaptersChange();
                 capitulos.clear();
-                capitulos = getCapitulos();
+                capitulos = dbHelper.getCapitulos(serieItem.getId(), (((Spinner) findViewById(R.id.spinner_temporada)).getSelectedItemPosition() + 1), serieItem, getString(R.string.chaper));
                 cap.clear();
                 cap.addAll(capitulos);
                 cap.notifyDataSetChanged();
                 calculateListViewHeight();
-                changeExtension();
             }
 
             @Override
@@ -144,31 +112,6 @@ public class SerieDetail extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void changeExtension(){
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-
-            Connection conexion = DriverManager.getConnection("jdbc:mysql://92.187.160.50:3306/anime", "animes", "vivaelbetis");
-
-            Statement consulta = conexion.createStatement();
-
-            String sql = "SELECT type FROM capitulos where idserie = " + serieItem.getId() + " and idtemporada = " + (((Spinner) findViewById(R.id.spinner_temporada)).getSelectedItemPosition() + 1);
-
-            ResultSet resultado = consulta.executeQuery(sql);
-
-            while (resultado.next()){
-                serieItem.setExtension(resultado.getString(1));
-            }
-
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     private String[] getTemporadas() {
@@ -182,20 +125,16 @@ public class SerieDetail extends AppCompatActivity {
     }
 
     private void loadLayout(){
-        serieItem = new CategoryItem();
-
-        getSelectedData();
+        serieItem = dbHelper.getDataSerie(getIntent().getIntExtra("idObject",0));
 
         setImage();
 
         setDescr();
-        //((ImageView) findViewById(R.id.serie_image)).setI
     }
 
     private void setDescr(){
         ((TextView) findViewById(R.id.serie_name)).setText(serieItem.getMovieName());
         ((TextView) findViewById(R.id.description_serie)).setText(serieItem.getDescription());
-
     }
 
     private void setImage(){
@@ -213,33 +152,4 @@ public class SerieDetail extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-    private void getSelectedData(){
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-
-            Connection conexion = DriverManager.getConnection("jdbc:mysql://92.187.160.50:3306/anime", "animes", "vivaelbetis");
-
-            Statement consulta = conexion.createStatement();
-
-            String sql = "SELECT id, name, descripcion, temporadas FROM serie where name = " + "'"  + getIntent().getStringExtra("nameDetails") + "'";
-
-            ResultSet resultado = consulta.executeQuery(sql);
-
-            while (resultado.next()){
-                serieItem.setId(resultado.getInt(1));
-                serieItem.setMovieName(resultado.getString(2));
-                serieItem.setDescription(resultado.getString(3));
-                serieItem.setTemporadas(resultado.getInt(4));
-            }
-
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
 }

@@ -7,11 +7,21 @@ public class CategoryItem {
 
     public CategoryItem(){}
 
-    public CategoryItem(Integer id, String movieName, String imageUrl, String fileUrl) {
+    public CategoryItem(Integer id, String movieName, String description, String imageUrl, String type) {
         this.id = id;
         this.movieName = movieName;
+        this.description = description;
         this.imageUrl = imageUrl;
-        this.fileUrl = fileUrl;
+        this.type = type;
+    }
+
+    public CategoryItem(Integer id, String movieName, String description, String imageUrl, String extension, String type) {
+        this.id = id;
+        this.movieName = movieName;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.extension = extension;
+        this.type = type;
     }
 
     public String getExtension() {

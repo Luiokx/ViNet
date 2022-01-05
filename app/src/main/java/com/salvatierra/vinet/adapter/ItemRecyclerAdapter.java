@@ -17,6 +17,8 @@ import com.salvatierra.vinet.MovieDetail;
 import com.salvatierra.vinet.R;
 import com.salvatierra.vinet.SerieDetail;
 import com.salvatierra.vinet.model.CategoryItem;
+import com.salvatierra.vinet.model.DataManager;
+
 import java.util.List;
 
 public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapter.ItemViewHolder> {
@@ -40,13 +42,13 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
         holder.itemImage.setOnClickListener(v -> {
             Intent window = null;
 
-            if (this.categoryItemList.get(position).getType().equals("s")){
+            if (this.categoryItemList.get(position).getType().equals(DataManager.TABLE_SERIE)){
                 window = new Intent(context, SerieDetail.class);
             } else {
                 window = new Intent(context, MovieDetail.class);
             }
 
-            window.putExtra("nameDetails", this.categoryItemList.get(position).getMovieName());
+            window.putExtra("idObject", this.categoryItemList.get(position).getId());
             context.startActivity(window);
         });
 
