@@ -7,4 +7,9 @@
     <string name="serie_start">Start chapter</string>
     <string name="serie_chapter">Chapters</string>
     <string name="chaper">Chapter</string>
+    <string name="buttonSearch">Search</string>
+    <string name="searchText">Search item</string>
+    <string name="navigationNovedades">Main</string>
+    <string name="navigationSearch">Search</string>
+    <string name="navigationProfile">Profile</string>
 </resources>

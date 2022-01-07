@@ -1,11 +1,19 @@
  package com.salvatierra.vinet;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
+
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.google.android.material.tabs.TabLayout;
 import com.salvatierra.vinet.adapter.BannerHomePageAdapter;
 import com.salvatierra.vinet.adapter.MainRecyclerAdapter;
@@ -17,28 +25,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 
- public class MainActivity extends AppCompatActivity {
+ public class MainActivity extends Fragment {
+    private Context context;
+    private View view;
     private thread thread;
     private List<BannerMoviews> bannerSerieList;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+    public MainActivity(){}
 
-        StrictMode.setThreadPolicy(policy);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View response = inflater.inflate(R.layout.activity_main, container, false);
+        this.context = container.getContext();
+        this.view = response;
 
         ArrayList<AllCategory> seriesCategory = new ArrayList<>();
         ArrayList<AllCategory> moviesCategory = new ArrayList<>();
 
-        runOnUiThread(() -> {
+
+        ((Activity) context).runOnUiThread(() -> {
             prepareContent(seriesCategory, DataManager.TABLE_SERIE);
             prepareContent(moviesCategory, DataManager.TABLE_PELICULA);
             prepareBannerContent(seriesCategory, moviesCategory);
         });
 
-
+        return response;
     }
 
     private void prepareBannerContent(ArrayList<AllCategory> seriesCategory, ArrayList<AllCategory> moviesCategory){
@@ -52,18 +63,18 @@ import java.util.List;
         bannerMoviesList.add(new BannerMoviews(1, "Air TV", "http://92.187.160.50:4200/Air TV/logo.jpg",""));
         bannerMoviesList.add(new BannerMoviews(1, "Angel Beats", "http://92.187.160.50:4200/Angel Beats/logo.jpg",""));
 
-        ((TabLayout) findViewById(R.id.tabLayout)).addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        ((TabLayout) view.findViewById(R.id.tabLayout)).addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()){
                     case 0:
-                        runOnUiThread(() -> setMainRecyclerAdapter(seriesCategory));
+                        ((Activity) context).runOnUiThread(() -> setMainRecyclerAdapter(seriesCategory));
 
                         setBannerMoviesPageAdapter(bannerSerieList);
 
                         break;
                     case 1:
-                        runOnUiThread(() -> setMainRecyclerAdapter(moviesCategory));
+                        ((Activity) context).runOnUiThread(() -> setMainRecyclerAdapter(moviesCategory));
 
                         setBannerMoviesPageAdapter(bannerMoviesList);
 
@@ -85,8 +96,7 @@ import java.util.List;
     }
 
     private void prepareContent(ArrayList<AllCategory> itemCategory, String type){
-        DataManager dbHelper = new DataManager(MainActivity.this);
-        dbHelper.syncWithMySQLServer();
+        DataManager dbHelper = new DataManager(context);
 
         setRecyclerSeries(itemCategory, dbHelper.getItems(type, DataManager.ACCION), "Accion");
         setRecyclerSeries(itemCategory, dbHelper.getItems(type, DataManager.AVENTURA), "Aventura");
@@ -115,16 +125,16 @@ import java.util.List;
     private void setBannerMoviesPageAdapter(List<BannerMoviews> bannerMoviewsList){
         //Estas lineas nos sirven para añadir las series/peliculas al banner inicial
 
-        ((ViewPager) findViewById(R.id.banner_viewPager)).setAdapter(new BannerHomePageAdapter(MainActivity.this, bannerMoviewsList));
+        ((ViewPager) view.findViewById(R.id.banner_viewPager)).setAdapter(new BannerHomePageAdapter(context, bannerMoviewsList));
 
         //Esta parte sirve para indicar en que posicion estamos en el banner incial
-        ((TabLayout) findViewById(R.id.tab_indicator)).setupWithViewPager((ViewPager) findViewById(R.id.banner_viewPager));
+        ((TabLayout) view.findViewById(R.id.tab_indicator)).setupWithViewPager((ViewPager) view.findViewById(R.id.banner_viewPager));
 
         //Esto servira para que se autodeslice
         thread = new thread();
         thread.start();
 
-        ((TabLayout) findViewById(R.id.tab_indicator)).setupWithViewPager((ViewPager) findViewById(R.id.banner_viewPager), true);
+        ((TabLayout) view.findViewById(R.id.tab_indicator)).setupWithViewPager((ViewPager) view.findViewById(R.id.banner_viewPager), true);
     }
 
      class thread extends Thread {
@@ -137,10 +147,10 @@ import java.util.List;
 
                      this.sleep(9000);
 
-                     if (((ViewPager) findViewById(R.id.banner_viewPager)).getCurrentItem() < bannerSerieList.size() - 1) {
-                         ((ViewPager) findViewById(R.id.banner_viewPager)).setCurrentItem(((ViewPager) findViewById(R.id.banner_viewPager)).getCurrentItem() + 1);
+                     if (((ViewPager) view.findViewById(R.id.banner_viewPager)).getCurrentItem() < bannerSerieList.size() - 1) {
+                         ((ViewPager) view.findViewById(R.id.banner_viewPager)).setCurrentItem(((ViewPager) view.findViewById(R.id.banner_viewPager)).getCurrentItem() + 1);
                      } else {
-                         ((ViewPager) findViewById(R.id.banner_viewPager)).setCurrentItem(0);
+                         ((ViewPager) view.findViewById(R.id.banner_viewPager)).setCurrentItem(0);
                      }
                  } catch (Exception e) {
                      e.getLocalizedMessage();
@@ -152,10 +162,10 @@ import java.util.List;
 
     public void setMainRecyclerAdapter(List<AllCategory> allCategoryList){
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
 
-        ((RecyclerView) findViewById(R.id.main_recycler)).setLayoutManager(layoutManager);
+        ((RecyclerView) view.findViewById(R.id.main_recycler)).setLayoutManager(layoutManager);
 
-        ((RecyclerView) findViewById(R.id.main_recycler)).setAdapter(new MainRecyclerAdapter(MainActivity.this, allCategoryList));
+        ((RecyclerView) view.findViewById(R.id.main_recycler)).setAdapter(new MainRecyclerAdapter(context, allCategoryList));
     }
 }

@@ -14,17 +14,23 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".VideoPlayerActivity"
-            android:theme="@style/Theme.AppCompat.HiddenTitleTheme"
             android:exported="false"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/Theme.AppCompat.HiddenTitleTheme" />
+        <activity
+            android:name=".MainNav"
+            android:exported="true" />
         <activity
             android:name=".SerieDetail"
+            android:exported="false" />
+        <activity
+            android:name=".SearchActivity"
             android:exported="false" />
         <activity
             android:name=".MovieDetail"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".first_loading"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

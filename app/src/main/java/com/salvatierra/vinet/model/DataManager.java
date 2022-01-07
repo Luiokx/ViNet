@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.GridLayout;
 import android.widget.Spinner;
 
 import com.salvatierra.vinet.R;
@@ -372,6 +373,48 @@ public class DataManager extends SQLiteOpenHelper {
         }
 
         return response;
+    }
+
+    public ArrayList<CategoryItem> getSearch(String str){
+        ArrayList<CategoryItem> response = new ArrayList<>();
+        String query = "SELECT id, name from serie";
+
+        SQLiteDatabase sQLiteDatabase = this.getWritableDatabase();
+        Cursor cursor = sQLiteDatabase.rawQuery(query, null);
+
+        while(cursor.moveToNext()){
+            if (cursor.getString(1).toLowerCase().contains(str.toLowerCase())) {
+                response.add(new CategoryItem());
+                response.get(response.size() - 1).setId(cursor.getInt(0));
+                response.get(response.size() - 1).setMovieName(cursor.getString(1));
+                response.get(response.size() - 1).setType(TABLE_SERIE);
+                response.get(response.size() - 1).setImageUrl(URL + cursor.getString(1) + LOGO);
+            }
+        }
+
+        query = "SELECT id, name from pelicula";
+        cursor = sQLiteDatabase.rawQuery(query, null);
+
+        while (cursor.moveToNext()) {
+            if (cursor.getString(1).toLowerCase().contains(str.toLowerCase())) {
+                response.add(new CategoryItem());
+                response.get(response.size() - 1).setId(cursor.getInt(0));
+                response.get(response.size() - 1).setMovieName(cursor.getString(1));
+                response.get(response.size() - 1).setType(TABLE_PELICULA);
+                response.get(response.size() - 1).setImageUrl(URL + cursor.getString(1) + LOGO);
+            }
+        }
+
+        return response;
+    }
+
+    public boolean isOnlySpacing(String str, GridLayout gridLayout) {
+        if (str.trim().isEmpty()){
+            gridLayout.removeAllViewsInLayout();
+            return true;
+        }
+
+        return false;
     }
 
 }

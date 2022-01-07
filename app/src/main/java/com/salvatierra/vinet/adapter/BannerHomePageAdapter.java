@@ -1,6 +1,7 @@
 package com.salvatierra.vinet.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
 import com.salvatierra.vinet.R;
+import com.salvatierra.vinet.SearchActivity;
 import com.salvatierra.vinet.model.BannerMoviews;
 
 import java.util.List;
@@ -54,7 +56,10 @@ public class BannerHomePageAdapter extends PagerAdapter {
         container.addView(view);
 
         bannerImage.setOnClickListener(v -> {
-            Toast.makeText(context, bannerMoviewsList.get(position).getMovieName(), Toast.LENGTH_LONG).show();
+            Intent window = new Intent(context, SearchActivity.class);
+            context.startActivity(window);
+
+            //Toast.makeText(context, bannerMoviewsList.get(position).getMovieName(), Toast.LENGTH_LONG).show();
         });
 
         return view;
