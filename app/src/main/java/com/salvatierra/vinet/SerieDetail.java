@@ -53,7 +53,7 @@ public class SerieDetail extends AppCompatActivity {
 
         setChapters();
 
-        calculateListViewHeight();
+        //calculateListViewHeight();
 
         setListListener();
     }
